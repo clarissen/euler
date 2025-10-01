@@ -223,16 +223,16 @@ param_dict_f, post_dict_f, x_f, t_f, qtx_f = data_m.load_sim(sim_names[2], False
 vars_f, var_names_f = data_m.load_vars2(sim_names[2], False)
 
 t_list = [t_c, t_m, t_f]
-print("time")
-print(t_list[0])
-print(t_list[1])
-print(t_list[2])
+# print("time")
+# print(t_list[0])
+# print(t_list[1])
+# print(t_list[2])
 
 x_list = [x_c, x_m, x_f]
-print("space")
-print(x_list[0])
-print(x_list[1])
-print(x_list[2])
+# print("space")
+# print(x_list[0])
+# print(x_list[1])
+# print(x_list[2])
 
 # resolutions
 hx_c = param_dict_c["hx"]
@@ -263,6 +263,7 @@ t_array = t_c
 # -------------------
 # coarse
 T00_tx_c = qtx_c[:,0]
+print("T00 coarse", T00_tx_c)
 T0x_tx_c = qtx_c[:,1]
 ep_tx_c = vars_c[7]
 v_tx_c = vars_c[11]
@@ -290,7 +291,7 @@ Txx_tx_f = vars_f[5]
 depdx_tx_f = vars_f[9]
 
 # coarse
-mask_c = build_mask(depdx_tx_c, width=3)
+mask_c, max_pos_c = build_mask(depdx_tx_c, width=3)
 
 T00_tx_c_masked = np.where(mask_c, T00_tx_c, np.nan)
 T0x_tx_c_masked = np.where(mask_c, T0x_tx_c, np.nan)
@@ -299,7 +300,7 @@ v_tx_c_masked   = np.where(mask_c, v_tx_c, np.nan)
 Txx_tx_c_masked = np.where(mask_c, Txx_tx_c, np.nan)
 
 # medium
-mask_m = build_mask(depdx_tx_m, width=3)
+mask_m, max_pos_m = build_mask(depdx_tx_m, width=3)
 
 T00_tx_m_masked = np.where(mask_m, T00_tx_m, np.nan)
 T0x_tx_m_masked = np.where(mask_m, T0x_tx_m, np.nan)
@@ -308,7 +309,7 @@ v_tx_m_masked   = np.where(mask_m, v_tx_m, np.nan)
 Txx_tx_m_masked = np.where(mask_m, Txx_tx_m, np.nan)
 
 # fine
-mask_f = build_mask(depdx_tx_f, width=3)
+mask_f, max_pos_f = build_mask(depdx_tx_f, width=3)
 
 T00_tx_f_masked = np.where(mask_f, T00_tx_f, np.nan)
 T0x_tx_f_masked = np.where(mask_f, T0x_tx_f, np.nan)
